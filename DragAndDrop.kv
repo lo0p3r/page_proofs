@@ -1,0 +1,78 @@
+RootLayout:
+    DraggableBoxLayout:
+        drag_classes: ['label']
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba:
+                    (1, 1, 1, .2) if \
+                    app.drag_controller.dragging \
+                    and app.drag_controller.widget_dragged \
+                    and app.drag_controller.widget_dragged.drag_cls == 'label' \
+                    else (0, 0, 0, 0)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: 'A'
+        Label:
+            text: 'A'
+        Label:
+            text: 'A'
+        Label:
+            text: 'A'
+        Label:
+            text: 'A'
+        Label:
+            text: 'A'
+        DraggableBoxLayout:
+            padding: '20dp', 0
+            drag_classes: ['label2']
+            orientation: 'vertical'
+            canvas:
+                Color:
+                    rgba:
+                        (1, 1, 1, .2) if \
+                        app.drag_controller.dragging \
+                        and app.drag_controller.widget_dragged \
+                        and app.drag_controller.widget_dragged.drag_cls == 'label2' \
+                        else (0, 0, 0, 0)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'B'
+            Label:
+                text: 'B'
+            Label:
+                text: 'B'
+    DraggableBoxLayout:
+        drag_classes: ['label', 'label2']
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: (1, 1, 1, .2) if app.drag_controller.dragging else (0, 0, 0, 0)
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        DragLabel:
+            text: 'A*'
+            drag_cls: 'label'
+        DragLabel:
+            text: 'B*'
+            drag_cls: 'label2'
+        DragLabel:
+            text: 'A*'
+            drag_cls: 'label'
+        DragLabel:
+            text: 'B*'
+            drag_cls: 'label2'
+        DragLabel:
+            text: 'A*'
+            drag_cls: 'label'
+        DragLabel:
+            text: 'B*'
+            drag_cls: 'label2'
+        DragLabel:
+            text: 'A*'
+            drag_cls: 'label'
