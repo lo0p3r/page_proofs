@@ -1,33 +1,28 @@
 RootLayout:
-    DraggableBoxLayout:
-        drag_classes: ['label']
-        orientation: 'vertical'
-        canvas:
-            Color:
-                rgba:
-                    (1, 1, 1, .2) if \
-                    app.drag_controller.dragging \
-                    and app.drag_controller.widget_dragged \
-                    and app.drag_controller.widget_dragged.drag_cls == 'label' \
-                    else (0, 0, 0, 0)
-            Rectangle:
-                pos: self.pos
-                size: self.size
-        Label:
-            text: 'A'
-        Label:
-            text: 'A'
-        Label:
-            text: 'A'
-        Label:
-            text: 'A'
-        Label:
-            text: 'A'
-        Label:
-            text: 'A'
+    output_folder: output_folder
+    orientation: 'vertical'
+
+    TextInput:
+        id: output_folder
+        font_size: 25
+        multiline: True
+        height: 100
+        hint_text: 'Output folder'
+        size_hint: (1, None)
+        text: ''
+    Button:
+        id: choose_output_folder
+        font_size: 25
+        height: 50
+        size_hint: (1, None)
+        text: 'Choose output folder'
+        on_release: root.show_load()
+    BoxLayout:
+        id: pages
+        orientation: 'horizontal'
+
         DraggableBoxLayout:
-            padding: '20dp', 0
-            drag_classes: ['label2']
+            drag_classes: ['label']
             orientation: 'vertical'
             canvas:
                 Color:
@@ -35,44 +30,92 @@ RootLayout:
                         (1, 1, 1, .2) if \
                         app.drag_controller.dragging \
                         and app.drag_controller.widget_dragged \
-                        and app.drag_controller.widget_dragged.drag_cls == 'label2' \
+                        and app.drag_controller.widget_dragged.drag_cls == 'label' \
                         else (0, 0, 0, 0)
                 Rectangle:
                     pos: self.pos
                     size: self.size
             Label:
-                text: 'B'
+                text: 'A'
             Label:
-                text: 'B'
+                text: 'A'
             Label:
-                text: 'B'
-    DraggableBoxLayout:
-        drag_classes: ['label', 'label2']
-        orientation: 'vertical'
-        canvas:
-            Color:
-                rgba: (1, 1, 1, .2) if app.drag_controller.dragging else (0, 0, 0, 0)
-            Rectangle:
-                pos: self.pos
-                size: self.size
-        DragLabel:
-            text: 'A*'
-            drag_cls: 'label'
-        DragLabel:
-            text: 'B*'
-            drag_cls: 'label2'
-        DragLabel:
-            text: 'A*'
-            drag_cls: 'label'
-        DragLabel:
-            text: 'B*'
-            drag_cls: 'label2'
-        DragLabel:
-            text: 'A*'
-            drag_cls: 'label'
-        DragLabel:
-            text: 'B*'
-            drag_cls: 'label2'
-        DragLabel:
-            text: 'A*'
-            drag_cls: 'label'
+                text: 'A'
+            Label:
+                text: 'A'
+            Label:
+                text: 'A'
+            Label:
+                text: 'A'
+            DraggableBoxLayout:
+                padding: '20dp', 0
+                drag_classes: ['label2']
+                orientation: 'vertical'
+                canvas:
+                    Color:
+                        rgba:
+                            (1, 1, 1, .2) if \
+                            app.drag_controller.dragging \
+                            and app.drag_controller.widget_dragged \
+                            and app.drag_controller.widget_dragged.drag_cls == 'label2' \
+                            else (0, 0, 0, 0)
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                Label:
+                    text: 'B'
+                Label:
+                    text: 'B'
+                Label:
+                    text: 'B'
+        DraggableBoxLayout:
+            drag_classes: ['label', 'label2']
+            orientation: 'vertical'
+            canvas:
+                Color:
+                    rgba: (1, 1, 1, .2) if app.drag_controller.dragging else (0, 0, 0, 0)
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            DragLabel:
+                text: 'A*'
+                drag_cls: 'label'
+            DragLabel:
+                text: 'B*'
+                drag_cls: 'label2'
+            DragLabel:
+                text: 'A*'
+                drag_cls: 'label'
+            DragLabel:
+                text: 'B*'
+                drag_cls: 'label2'
+            DragLabel:
+                text: 'A*'
+                drag_cls: 'label'
+            DragLabel:
+                text: 'B*'
+                drag_cls: 'label2'
+            DragLabel:
+                text: 'A*'
+                drag_cls: 'label'
+
+
+<LoadDialog>:
+    BoxLayout:
+        size: root.size
+        pos: root.pos
+        orientation: "vertical"
+        FileChooserListView:
+            id: filechooser
+            multiselect: False
+            dirselect: True
+        BoxLayout:
+            size_hint_y: None
+            height: 30
+            Button:
+                text: "Cancel"
+                on_release: root.cancel()
+            Button:
+                text: "Load"
+                on_release:
+                    root.load(filechooser.path, filechooser.selection)

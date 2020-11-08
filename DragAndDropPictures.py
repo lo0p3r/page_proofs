@@ -1,15 +1,44 @@
 from kivy.app import App
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
+from kivy.uix.floatlayout import FloatLayout
+from kivy.uix.popup import Popup
 from kivy_garden.drag_n_drop import (
     DraggableController, DraggableLayoutBehavior, DraggableObjectBehavior,
     SpacerWidget)
 from kivy.properties import ObjectProperty
+from kivy.properties import DictProperty
+
+import os
 
 drag_controller = DraggableController()
 
+class LoadDialog(FloatLayout):
+    load = ObjectProperty(None)
+    cancel = ObjectProperty(None)
+
 class RootLayout(BoxLayout):
-    pages: ObjectProperty(None)
+    output_folder = ObjectProperty(None)
+    loadfile = ObjectProperty(None)
+    pages: DictProperty(None)  # key - page number, value - dict (key - page property, like id, class, etc)
+
+    def dismiss_popup(self):
+        self._popup.dismiss()
+
+    def show_load(self):
+        content = LoadDialog(load=self.load, cancel=self.dismiss_popup)
+        self._popup = Popup(title="Load file", content=content,
+                            size_hint=(0.9, 0.9))
+        self._popup.open()
+
+    def load(self, path, filename):
+        if (os.path.isdir(os.path.join(path, filename[0]))):
+            self.output_folder.text = os.path.join(path, filename[0])
+        else:
+            self.output_folder.text = 'C:\\'
+
+        self.dismiss_popup()
+
 
 
 class DraggableBoxLayout(DraggableLayoutBehavior, BoxLayout):

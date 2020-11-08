@@ -34,6 +34,7 @@ class CalcGridLayout(GridLayout):
         self.filePath = file_path.decode("utf-8")     # convert byte to string
         self.ids.img.source = self.filePath
         self.ids.img.reload()   # reload image
+
     def build_word(self, image_path):
         doc_path = os.path.join(
             os.path.dirname(image_path),
