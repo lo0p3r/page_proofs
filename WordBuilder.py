@@ -15,38 +15,6 @@ IMAGES = filter(
     lambda x: x.endswith('.png'),
     os.listdir(IMAGEDIR))
 
-kv = '''
-FloatLayout:
-    BoxLayout:
-        GridLayout:
-            id: grid_layout
-            cols: int(self.width / 32)
-
-        FloatLayout:
-            id: float_layout
-'''
-
-kv = '''
-FloatLayout:
-    BoxLayout:
-        ScrollView:
-            bar_width: 10
-            GridLayout:
-                id: grid_layout
-                size_hint_y: None
-                height: self.minimum_height
-                cols: 4
-
-        FloatLayout:
-            canvas.before:
-                Color:
-                    rgba: 1, 1, 1, 1
-                Rectangle:
-                    pos: self.pos
-                    size: self.size
-            id: float_layout
-'''
-
 
 class Root(FloatLayout):
     pass
@@ -116,9 +84,9 @@ class DraggableImage(Magnet):
         return x_left <= x <= x_right and y_bottom <= y <= y_top
 
 
-class DnDMagnet(App):
+class WordBuilder(App):
     def build(self):
-        self.root = Builder.load_string(kv)
+        # self.root = Builder.load_string(kv)
         for i in IMAGES:
             image = Image(source=os.path.join(IMAGEDIR, i), size=(32, 32),
                           size_hint=(None, None))
@@ -132,4 +100,4 @@ class DnDMagnet(App):
 
 
 if __name__ == '__main__':
-    DnDMagnet().run()
+    WordBuilder().run()
