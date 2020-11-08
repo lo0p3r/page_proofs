@@ -1,0 +1,18 @@
+FloatLayout:
+    BoxLayout:
+        ScrollView:
+            bar_width: 10
+            GridLayout:
+                id: grid_layout
+                size_hint_y: None
+                height: self.minimum_height
+                cols: 4
+
+        FloatLayout:
+            canvas.before:
+                Color:
+                    rgba: 1, 1, 1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            id: float_layout
